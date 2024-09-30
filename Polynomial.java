@@ -35,6 +35,63 @@ public class Polynomial{
         }
     }
 
+    // public Polynomial(File file) throws FileNotFoundException{
+    //     List<Double> coeffs = new ArrayList<>();
+    //     List<Integer> exps = new ArrayList<>();
+    //     Scanner scanner = new Scanner(file); 
+    //     if (scanner.hasNextLine()){
+    //         String line = scanner.nextLine();
+    //         String[] terms = line.split("(?=[+-])");
+
+    //         for (String term: terms){
+    //             // int i = 0; 
+    //             double coeff;
+    //             int exp;
+    //             if (term.contains("x")) {
+    //                 String[] parts = term.split("x");
+    //                 if (parts.length == 0){
+    //                     coeff = 1.0;
+    //                     exp = 0;
+    //                 }
+    //                 else if ((parts.length != 0) && (!parts[0].isEmpty())){
+    //                     //reach here if it has coefficients  
+    //                     if (parts[0].equals("+")){
+    //                         coeff = 1.0;
+    //                     }                   
+    //                     else if (parts[0].equals("-")){
+    //                         coeff = -1.0;
+    //                     }
+    //                     else{
+    //                         coeff = Double.parseDouble(parts[0]);
+    //                     }
+    //                 }
+    //                 if ((parts.length >= 2) && (!parts[1].isEmpty())){                       
+    //                     exp = Integer.parseInt(parts[1]);
+    //                 }
+                    
+    //             }
+    //             else {
+    //                 // constant term
+    //                 coeff = Double.parseDouble(term);
+    //                 exp = 0; 
+    //             }
+
+    //             // Add the coefficient and exponent to lists
+    //             coeffs.add(coeff);
+    //             exps.add(exp);
+    //         }
+    //     }
+    //     scanner.close();
+
+    //     // Convert lists to arrays
+    //     coefficients = new double[coeffs.size()];
+    //     exponents = new int[exps.size()];
+    //     for (int i = 0; i < coeffs.size(); i++) {
+    //         coefficients[i] = coeffs.get(i);
+    //         exponents[i] = exps.get(i);
+    //     }
+    // }
+
     public Polynomial(File file) throws FileNotFoundException{
         List<Double> coeffs = new ArrayList<>();
         List<Integer> exps = new ArrayList<>();
@@ -46,27 +103,35 @@ public class Polynomial{
             for (String term: terms){
                 // int i = 0; 
                 double coeff = 1.0;
-                int exp = 0;
+                int exp = 1;
                 if (term.contains("x")) {
-                    exp = 1;
                     String[] parts = term.split("x");
-
-                    if ((parts.length != 0) && (!parts[0].isEmpty())){
-                        //reach here if it has coefficients  
-                        if (parts[0].equals("+")){
+                    if (parts.length == 0){
+                        coeff = 1.0;
+                        exp = 1;
+                    }
+                    else{
+                        if (parts[0].length() == 0 || parts[0].equals("+")){
                             coeff = 1.0;
-                        }                   
+                        }
                         else if (parts[0].equals("-")){
                             coeff = -1.0;
                         }
                         else{
                             coeff = Double.parseDouble(parts[0]);
                         }
+                        //exponents
+                        if (parts.length >= 2){
+                            if (parts[1].length() == 0){
+                                System.out.println("here");
+                                exp = 1;
+                            }
+                            else{
+                                exp = Integer.parseInt(parts[1]);
+                            }
+                        }
                     }
-                    if ((parts.length >= 2) && (!parts[1].isEmpty())){                       
-                        exp = Integer.parseInt(parts[1]);
-                    }
-                    
+                        
                 }
                 else {
                     // constant term
